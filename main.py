@@ -62,4 +62,4 @@ def generate_pdf():
     return send_file(output_stream, as_attachment=True, download_name=f"{salesperson}_customized.pdf")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
