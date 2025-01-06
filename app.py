@@ -1,6 +1,6 @@
 from flask import Flask, request, send_file
 from PyPDF2 import PdfReader, PdfWriter
-from boxsdk import Client, OAuth2
+from boxsdk import Client
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 import io
@@ -11,8 +11,6 @@ app = Flask(__name__)
 CLIENT_ID = os.getenv("client_id_config")
 CLIENT_SECRET = os.getenv("client_secret_config")
 DEVELOPER_TOKEN = os.getenv("developer_token_config")
-
-oauth2.authenticate('authorization_code')
 
 
 
