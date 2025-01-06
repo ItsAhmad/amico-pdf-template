@@ -1,6 +1,6 @@
 from flask import Flask, request, send_file
 from PyPDF2 import PdfReader, PdfWriter
-from boxsdk import Client
+from boxsdk import OAuth2, Client
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 import io
@@ -12,6 +12,13 @@ CLIENT_ID = os.getenv("client_id_config")
 CLIENT_SECRET = os.getenv("client_secret_config")
 DEVELOPER_TOKEN = os.getenv("developer_token_config")
 
+oauth2 = OAuth2(
+    client_id=CLIENT_ID,
+    client_secret=CLIENT_SECRET,
+    access_token=DEVELOPER_TOKEN,
+)
+
+client = Client(oauth2)
 
 
 @app.route('/generate_pdf', methods=['POST'])
@@ -37,13 +44,13 @@ def generate_pdf():
     if not file_name:
       return "Invalid salesperson selected.", 400
 
-    items = Client.folder(folder_id).get_items()
+    items = client.folder(folder_id).get_items()
     file_id = next((item.id for item in items if item.name == file_name), None)
 
     if not file_id:
       return f"Template for {file_name} not found.", 404
 
-    box_file = Client.file(file_id).content()
+    box_file = client.file(file_id).content()
 
      # Create overlay with dynamic content
     overlay_stream = io.BytesIO()
