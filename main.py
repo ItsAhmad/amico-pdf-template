@@ -26,12 +26,24 @@ def generate_pdf():
     message = request.form.get('message')
 
     folder_id = '301251997812'
-    file_name_mario = 'MARIO KULIS.PDF'
-    file_name_kareem = 'KAREEM KAMAL.PDF'
-    file_name_john = 'JOHN LY.PDF'
-    file_name_stefani = 'STEFANI EROGULLARI.pdf'
+    rsm_to_file_map = {
+    "KK": "KAREEM KAMAL.PDF",
+    "MK": "MARIO KULIS.PDF",
+    "JL": "JOHN LY.PDF",
+    "SE": "STEFANI EROGULLARI.PDF",
+    "AA": "AHMAD AMEEN.PDF",
+    }
+
+    file_name = rsm_to_file_map.get(RSM)
+
+    if not file_name:
+      return "Invalid salesperson selected.", 400
+
     items = client.folder(folder_id).get_items()
-    file_id = next(item.id for item in items if item.name == file_name)
+    file_id = next((item.id for item in items if item.name == file_name), None)
+
+    if not file_id:
+      return f"Template for {file_name} not found.", 404
 
     box_file = client.file(file_id).content()
 
@@ -39,7 +51,9 @@ def generate_pdf():
     overlay_stream = io.BytesIO()
     c = canvas.Canvas(overlay_stream, pagesize=letter)
     c.setFont("Helvetica-Bold", 14)
-    c.drawString(100, 500, f"Client Name: {client_name}")
+    c.drawString(100, 500, f"contact name:{contactName}")
+    c.drawString(100, 490, f"Date:{date}")
+    c.drawString(100, 495, f"Address:{contactAddy}")
     c.drawString(100, 480, f"Message: {message}")
     c.save()
     overlay_stream.seek(0)
