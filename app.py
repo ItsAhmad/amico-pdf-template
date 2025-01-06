@@ -8,14 +8,9 @@ import os
 
 app = Flask(__name__)
 
-oauth2 = OAuth2(
-    client_id=os.getenv("CLIENT_ID"),
-    client_secret=os.getenv("CLIENT_SECRET"),
-    store_tokens=lambda access_token, refresh_token: print(f"New tokens: {access_token}, {refresh_token}")
-)
-
-auth_url, csrf_token = oauth2.get_authorization_url(redirect_url='https://box.com')
-print(f"Visit this URL to authorize the app: {auth_url}")
+CLIENT_ID = os.getenv("client_id_config")
+CLIENT_SECRET = os.getenv("client_secret_config")
+DEVELOPER_TOKEN = os.getenv("developer_token_config")
 
 oauth2.authenticate('authorization_code')
 
