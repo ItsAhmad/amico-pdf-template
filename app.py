@@ -18,8 +18,7 @@ oauth2 = OAuth2(
 auth_url, csrf_token = oauth2.get_authorization_url('https://amico.box.com')
 print(f"Visit this URL to authorize the app: {auth_url}")
 
-# After user authorizes, exchange the code for tokens
-# oauth2.authenticate('authorization_code')
+oauth2.authenticate('authorization_code')
 
 
 
