@@ -14,8 +14,8 @@ oauth2 = OAuth2(
     store_tokens=lambda access_token, refresh_token: print(f"New tokens: {access_token}, {refresh_token}")
 )
 
-auth_url, csrf_token = oauth2.get_authorization_url('https://box.com')
-print(f"Visit this URL to authorize the app: {auth_url}")
+redirect_uri, csrf_token = oauth2.get_authorization_url('https://box.com')
+print(f"Visit this URL to authorize the app: {redirect_uri}")
 
 oauth2.authenticate('authorization_code')
 
