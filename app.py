@@ -5,7 +5,6 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 import io
 import os
-from boxsdk import OAuth2, Client
 
 app = Flask(__name__)
 
@@ -45,13 +44,13 @@ def generate_pdf():
     if not file_name:
       return "Invalid salesperson selected.", 400
 
-    items = client.folder(folder_id).get_items()
+    items = Client.folder(folder_id).get_items()
     file_id = next((item.id for item in items if item.name == file_name), None)
 
     if not file_id:
       return f"Template for {file_name} not found.", 404
 
-    box_file = client.file(file_id).content()
+    box_file = Client.file(file_id).content()
 
      # Create overlay with dynamic content
     overlay_stream = io.BytesIO()
