@@ -4,7 +4,6 @@ from boxsdk import Client, OAuth2
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 import io
-import config
 
 app = Flask(__name__)
 
