@@ -4,12 +4,14 @@ from boxsdk import Client, OAuth2
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 import io
+import os
 
 app = Flask(__name__)
 
-CLIENT_ID = 'client_id_config' 
-CLIENT_SECRET = 'client_secret_config'
-DEVELOPER_TOKEN = 'developer_token_config'
+CLIENT_ID = os.getenv("CLIENT_ID")
+CLIENT_SECRET = os.getenv("CLIENT_SECRET")
+DEVELOPER_TOKEN = os.getenv("DEVELOPER_TOKEN")
+
 
 oauth2 = OAuth2(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, access_token=DEVELOPER_TOKEN)
 client = Client(oauth2)
