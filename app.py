@@ -72,7 +72,7 @@ def generate_pdf():
     output_stream.seek(0)
 
     # Return the generated PDF for download
-    return send_file(output_stream, as_attachment=True, download_name=f"{salesperson}_customized.pdf")
+    return send_file(output_stream, as_attachment=True, download_name=f"{RSM}_customized.pdf")
 
 if __name__ == '__main__':
     app.run()
