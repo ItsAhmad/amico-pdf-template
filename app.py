@@ -45,7 +45,7 @@ def generate_pdf():
       return "Invalid salesperson selected.", 400
 
     items = client.folder(folder_id).get_items()
-    file_id = next((item.id for item in items if item.name == file_name), None)
+    file_id = next((file_id for item in items if item.name == file_name), None)
 
     if not file_id:
       return f"Template for {file_name} not found.", 404
