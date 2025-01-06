@@ -5,16 +5,22 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 import io
 import os
+from boxsdk import OAuth2, Client
 
 app = Flask(__name__)
 
-CLIENT_ID = os.getenv("CLIENT_ID")
-CLIENT_SECRET = os.getenv("CLIENT_SECRET")
-DEVELOPER_TOKEN = os.getenv("DEVELOPER_TOKEN")
+oauth2 = OAuth2(
+    client_id=os.getenv("CLIENT_ID"),
+    client_secret=os.getenv("CLIENT_SECRET"),
+    store_tokens=lambda access_token, refresh_token: print(f"New tokens: {access_token}, {refresh_token}")
+)
 
+auth_url, csrf_token = oauth2.get_authorization_url('https://amico.box.com')
+print(f"Visit this URL to authorize the app: {auth_url}")
 
-oauth2 = OAuth2(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, access_token=DEVELOPER_TOKEN)
-client = Client(oauth2)
+# After user authorizes, exchange the code for tokens
+# oauth2.authenticate('authorization_code')
+
 
 
 @app.route('/generate_pdf', methods=['POST'])
