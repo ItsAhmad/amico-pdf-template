@@ -3,6 +3,8 @@ from PyPDF2 import PdfReader, PdfWriter
 from boxsdk import OAuth2, Client
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib import fonts
 import io
 import os
 
@@ -56,7 +58,8 @@ def generate_pdf():
 
     overlay_stream = io.BytesIO()
     c = canvas.Canvas(overlay_stream, pagesize=letter)
-    c.setFont("Helvetica-Bold", 14)
+    fonts.addMapping('MyriadPro-Light', 0, 0, 'fonts/MyriadPro-Light.otf')
+    c.setFont('MyriadPro-Light', 14)
 
     words = message.split()
     wrap_width = 200
@@ -65,7 +68,7 @@ def generate_pdf():
 
     for word in words: 
         test_line = f"{current_line} {word}".strip()
-        if c.stringWidth(test_line, "Helvetica", 12) <= wrap_width:
+        if c.stringWidth(test_line, "MyriadPro-Light", 12) <= wrap_width:
             current_line = test_line
         else: 
             lines.append(current_line)
