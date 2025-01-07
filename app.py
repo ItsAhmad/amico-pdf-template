@@ -32,10 +32,10 @@ def generate_pdf():
 
     folder_id = '301251997812'
     rsm_to_file_map = {
-    "KK": "1741111727844",
-    "MK": "1741111897886",
-    "JL": "1741109879546",
-    "SE": "1741109691788",
+    "KK": "KAREEM KAMAL.pdf",
+    "MK": "MARIO KULIS.pdf",
+    "JL": "JOHN LY.pdf",
+    "SE": "STEFANI EROGULLARI.pdf",
     "AA": "AHMAD AMEEN.PDF",
     }
 
