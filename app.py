@@ -55,10 +55,9 @@ def generate_pdf():
     box_file = client.file(file_id).content()
 
      # Create overlay with dynamic content
-
+    fonts.addMapping('MyriadPro-Light', 0, 0, 'fonts/MyriadPro-Light.otf')
     overlay_stream = io.BytesIO()
     c = canvas.Canvas(overlay_stream, pagesize=letter)
-    fonts.addMapping('MyriadPro-Light', 0, 0, 'fonts/MyriadPro-Light.otf')
     c.setFont('MyriadPro-Light', 14)
 
     words = message.split()
