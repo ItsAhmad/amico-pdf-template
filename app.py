@@ -55,8 +55,8 @@ def generate_pdf():
     box_file = client.file(file_id).content()
 
      # Create overlay with dynamic content
-    pdfmetrics.registerFont(TTFont('MyriadPro-Light', 'fonts/MyriadPro-Light.otf'))
-    
+    pdfmetrics.registerFont(TTFont('MyriadPro-Light', 'fonts/MyriadPro-Light.ttf'))
+
     overlay_stream = io.BytesIO()
     c = canvas.Canvas(overlay_stream, pagesize=letter)
     c.setFont('MyriadPro-Light', 14)
