@@ -4,7 +4,7 @@ from boxsdk import OAuth2, Client
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib import fonts
+from reportlab.pdfbase import pdfmetrics
 import io
 import os
 
@@ -55,7 +55,8 @@ def generate_pdf():
     box_file = client.file(file_id).content()
 
      # Create overlay with dynamic content
-    fonts.addMapping('MyriadPro-Light', 0, 0, 'fonts/MyriadPro-Light.otf')
+    pdfmetrics.registerFont(TTFont('MyriadPro-Light', 'fonts/MyriadPro-Light.otf'))
+    
     overlay_stream = io.BytesIO()
     c = canvas.Canvas(overlay_stream, pagesize=letter)
     c.setFont('MyriadPro-Light', 14)
