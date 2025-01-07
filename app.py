@@ -80,10 +80,9 @@ def generate_pdf():
         c.drawString(300, y_position , line) 
         y_position -= line_height 
        
-    c.drawString(100, 500, f"{contactName}")
-    c.drawString(100, 490, f"{date}")
-    c.drawString(100, 495, f"{contactAddy}")
-    c.drawString(100, 480, f"{message}")
+    c.drawString(300, 669, f"{contactName}")
+    c.drawString(300, 650, f"{date}")
+    c.drawString(300, 630, f"{contactAddy}")
     c.save()
     overlay_stream.seek(0)
 
