@@ -53,9 +53,33 @@ def generate_pdf():
     box_file = client.file(file_id).content()
 
      # Create overlay with dynamic content
+
     overlay_stream = io.BytesIO()
     c = canvas.Canvas(overlay_stream, pagesize=letter)
     c.setFont("Helvetica-Bold", 14)
+
+    words = message.split()
+    wrap_width = 200
+    current_line = ""
+    lines = []
+
+    for word in words: 
+        test_line = f"{current_line} {word}".strip()
+        if c.stringWidth(test_line, "Helvetica", 12) <= wrap_width:
+            current_line = test_line
+        else: 
+            lines.append(current_line)
+            current_line = word
+    if current_line: 
+        lines.append(current_line)
+
+    line_height = 14
+    y_position = 570
+
+    for line in lines:
+        c.drawString(300, y_position , line) 
+        y_position -= line_height 
+       
     c.drawString(100, 500, f"{contactName}")
     c.drawString(100, 490, f"{date}")
     c.drawString(100, 495, f"{contactAddy}")
